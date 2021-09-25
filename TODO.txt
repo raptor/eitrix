@@ -1,0 +1,315 @@
+﻿TODO
+
+
+-- For the First release:
+
+[ ] When I answer "Yes" on "use fullscreen display?" the program window becomes smaller (800x600), but not fullscreen.
+[ ] Is there a way to install game manually, without connecting to internet?
+[ ] I don't like some music, can I remove it from playlist, or can I make playlist with music I only like?
+[ ] Bug: Psycho not cured by antidote
+[ ] Bug: Keyboard conflicts hide cursor position
+[ ] Icon
+[ ] Special: Clear Screen  
+[ ] SPecial: Blindness
+[ ] Breakout for dead people!
+[ ] Fix up help
+[ ] Internationalization
+    [ ] Current font OK for french, english, german, spanish
+    [ ] Franklin Gothic Demi for Eastern European cultures
+    [ ] Font information here http://www.ascenderfonts.com/font/segoe-mono-family-2-fonts.aspx 
+[ ] More energetic clearing animation
+[ ] One or two easter eggs to get people to the web site
+    [ ] Easter Egg:  Make it look and sound like the original tetris: http://www.youtube.com/watch?v=O0gAgQQHFcQ
+    [ ] Easter Egg:  "I am dmitry Shostakovich and you ..."
+[ ] Edit your name
+[ ] Additional music
+[ ] Clean up unused sounds
+[ ] Squeak the size down a little more on the larger assetts
+[ ] Betafreak.com on the title page
+[ ] ads for other betafreak games
+[ ] Regular and smart computers use antidotes on afflications
+[ ] Zhilyaev: Computer tries to put new pieces in a "kind" place.  So if there is a conflict that would end the game, it tries another spot.
+[ ] Smart computers try to clear specials
+[ ] Colors on the wall are boring
+[ ] Put Rachel in the credits
+[ ] Remove purchase menu from windows versions
+[ ] XBox:  When Purchasing, Show a helpful message if a person can't purchase the game
+[ ] Change the Genre for Eitrix to "puzzle" on the XBox site
+[ ] Give mp3's names
+
+
+
+
+-- Maybe for first release
+[ ] High Scores
+[ ] Special: EIT-O-Matic
+[ ] Make Speedup an affliction
+[ ] Special: Shostakovich screaming
+[ ] All powerups should be weapons (make this an option) (SPecials probably don't need to know about victims, just owners)
+[ ] Justin: Option: Specials on/off
+[ ] Make the shadow slowly fade out
+[ ] Special: No Boundaries
+[ ] Special: Flip             
+[ ] Special: Invisible Pieces 
+[ ] Special: No Hints
+[ ] Special: All nice peices  
+[ ] Special: Bulldozer - clear everything at the same level as the piece you have
+[ ] Special: Zhilyaev: False next figure – shows false next figure information. If playes has both NoHints and FalseNextFigure prize – additionally hide prizes and miniantidote from gameboard. 
+
+-- Later
+[ ] Special: Extra preview piece
+[ ] Special: Change background 
+[ ] Special: Ressurect player
+[ ] Special: Zhilyaev: Kill antidote – kills 2 victim antidotes.
+[ ] Option: Finish immediately when winner is known
+[ ] Option: Finish the tournament if winner is known
+[ ] Option: Automatically apply good powers to self (as opposed to victim)
+[ ] Indicate when you have more than 4 antidotes
+[ ] Make powers terminate
+[ ] Evil computers attack their attackers
+[ ] Network it
+[ ] Justin: Option: Listen to songs from the options menu
+[ ] Justin: Option: Listen to sound effects from the options menu
+[ ] Look into XACT for wav-based music
+[ ] MP3 Looping: http://www.compuphase.com/mp3/mp3loops.htm
+[ ] Highlight top stats for each round
+[ ] Bug: Block shadow shows up inside blocks after attack
+
+
+
+--- BACKLOG ---
+
+
+[ ] Zhilyaev: Mini antidote – shows separately of other prizes, in gameboard has more than “X” (in my case – 10) lines. On shows on one of 6 up lines, and remove one of “continues” prizes from player. 
+[ ] Zhilyaev: Hell figure – computer calculate most “bad” figure for player on give it. 
+[ ] Zhilyaev: Remove color – removes from victim gameboard all emelents of one ramdom color.
+[ ] Zhilyaev: select self as victim. In this case, if I take the prize, which I have already given the opponent, the prize deletes itself.
+[ ] Zhilyaev: Added server parameter “ONEPLAYERSTOPGAME”. If it true, round finished than only one player stay live.
+[ ] Zhilyaev: Added server parameter “ADDROUNDIFNOWINNER”. No comments 
+[ ] Zhilyaev: Computer affected by Eittris prizes
+[ ] Zhilyaev: Freeze Dried and  Transparency simultaneously must show thin AND transparency figures 
+[ ] Zhilyaev: ParameterLINESONSTART gives all players prize WALL on start with X lines (for fun) 
+[ ] Zhilyaev: Partial and full antidotes       
+[ ] With no other players, increase the speedup or randomly hit the player with special attacks
+[ ] A super-clear block clears rows across the screen and steals their specials
+[ ] row clearing token – Sometimes a piece will have a flashing block that auto-clears a row (or column) once the piece is set.
+
+Zhilyaev Notes
+    [ ] Networked Eittris - 
+        - THis is slow: stupid send from server to client new position of figure, and from client to server – pressed buttons. 
+        - THis is faster, doesn't work so well at very high speeds: 
+            - look on client if new position of figure is acceptable.
+            - If test passed send it to server. 
+            - Server compare new and previous figure position. 
+            - If this change real and no interference, I save it. 
+            - Server and client move down figure automatically with current game speed.
+            - If difference in client and server no more than 1 level – client wins, otherwise – server.
+            - If there is a conflict, server wins.
+        - if one of players disconnected in case of network problems, computer continue play instead of him with average player speed. Player can reconnect and intercept control.
+    
+ 
+
+
+
+DONE
+
+Version 0.3.7.0
+[x] Sounds in options menu
+[x] Start/Exit should bring up a pause menu
+    [x] Switch Music, End Round, Change Volume
+[x] Re-orietn player gathering to vertical slots
+[x] Add a way to practice in the player selection
+    [x] (Kel) Ready-up screen to show current controls
+    [x] Start should start the game
+[x] Tune options movements
+[x] Using an antidote while one is active should replenish it.
+[x] Bug: Self-inflicted Crazy Ivan.  Once the other computer players had gone out, I was left by myself, which made me the victim of my own viruses. I gave myself the crazy ivan, but it didn’t show up down the bottom that I’d given it to myself, it made the sound though, therefore my antedotes were useless. I tried a few times, it was like the virus wasn’t there but it really was. Probably something you should look into ;)
+[x] Option: Cooperative play (Good blocks apply to victim)
+[-] Antidotes don't block tower attacks.  (No Repro)
+[x] Limit keyboard to one key, highlight conflicts
+[x] Full screen option dialog at start
+[x] Remove purchase option from windows version
+[x] Special: Switch Screens    
+[x] Special: Freeze Dried    
+[x] Special: Transparency
+[x] Computers think about antidotes now and can make mistakes
+[x] Tunes:  Beast, Cut and dried
+
+
+Version 0.3.6.0
+[x] Configure Keyboard
+    [x] Options Screen for configuring keyboard
+    [x] Show some help text to guide the user
+        [x] Esc to go back
+        [x] Delete to clear keys
+        [x] Enter to add a new key
+        [x] Highlight when key is being changes
+    [x] Change player number
+    [x] Don't let the same key add more than once
+    [x] Save keymappings on exit
+    [x] Load keymappings on start
+    [x] Can go off option list when in keyboard mode
+[x] Fix fonts on options page
+[x] Full screen mode
+[x] Fix options to scroll
+[x] Make a way to turn off new pieces
+[x] Antidote needs a sound
+[x] Antidotes should abort any attacks
+[x] Shrink resources
+[x] Make the version more obvious, put it in a couple of places
+[x] Sound and visual for blocked attack
+[x] Special: Shackle
+[x] Special: Tower of EIT
+
+Version 0.3.5.0
+[x] Improve help
+    [x] Increase size of help text
+    [x] Shrink help pages to 1920 size
+[x] Bug: Some pages are too big.   Replace with a default image if there is a problem.
+[x] Add specials to help page
+[x] Dig up the old sound for the psycho virus
+[x] See what other tetris games do if a rotation won't work (Gameboy tetris does not let you rotate)
+[x] Add a delay for new piece while the row is clearing
+[x] Bug: Computers should automatically be ready for the next round
+[x] Fix font at the botton of the player area.  Still hard to read
+[x] Make player height dependent on the most favorable dimension
+[x] Increase size of stats text
+[x] People don't stay grayed out when they are dead
+[x] Computers really should speed up a lot when no humans left
+[x] Make computer intelligence mean something
+[x] Change music and sound effect options to Volume instead of on/off
+[x] Make a little puff of dust come out when blocks are dropped
+[x] Xbox: Make sure there is a button for rotation on the right hand
+[x] More than one special at a time
+[x] Xbox: error screen, tell people to hit back to quit
+[x] Xbox: music loops over and over  
+[x] XBox: make "start" button advance the music (F2 on keyboard)
+[x] XBox: Randomly pick the song at the start of every game.
+[x] Add a couple of non-tetris peices
+[x] XBox: Purchase is broken - begin game in trial mode with local/no profile (gamepad2) and select purchase
+[x] Put Troy MacDonald, Kel Bolden and Zhilyaev Evgeniy in the credits
+[x] Added piece delay
+[x] Special: The Wall
+[x] Specials should appear more randomly
+[x] Make attack block be the color of the attacker
+[x] Special: Shadow pieces
+[x] Special: Bridge(default)  
+[x] Special: Evil Pieces
+[x] Special: Crazy Ivan   
+[x] Option: Antidote frequency
+[x] Stuff is impossible to read on 640x480  (Option: Expand graphics)
+
+Version 0.3.4.0
+[x] XBox: The Player Lobby text "...add yourself as a player" is incredibly small. (Make the overall text more informative)
+[x] Have a way to add multiple computer players from one controller
+[x] Make it so that when you add an anew option, it does not screw up the old ones.  (Catch the serialization error and re-init)
+[x] Only start when all Human players are ready
+[x] Troy: Psycho Virus
+[x] Font: Berlin Sans FB Demi
+[x] Clean up next piece
+[x] Special: Antidote      
+[x] Have the antidote have a lasting effect
+[x] Option: Start with Anitdotes
+[x] Adjust stats page for new font
+[x] Justin: Progress more slowly to next level
+[x] Reset options
+[x] Justin: Option: Music on/off
+[x] Justin: Option: Sound effects on/off
+[x] xBOX: Controllers are too sensitive
+[x] Revamp the player picking at the start
+    [x] Choose human or computer
+    [x] (Drop, Trigger, A) says OK
+    [x] Change Order
+    [x] (Back, B or X) goes to the previous choice
+    [x] Show Green when ready and print ready text
+    [x] Be able to add another player after adding a computer
+    [x] F keys generate instant ready computers
+    [x] Sounds
+[x] Added some code to help debug crashes
+[x] Made the options a little more safe
+
+
+Version 0.3.3.1
+[x] if just computer players left, make them go really fast
+[x] Stress mode
+[x] Subdue the backgrounds
+[x] Add some new backgrounds
+[x] Stats should sort by points, then by score
+[x] Player names in the stats page are totally messed up
+[x] Add a reference to the forum in the game
+[x] Add a shout-out to Justin
+[x] Ask justin for new noises
+[x] Don't draw attack arrow with single player
+[x] Specials should not appear right away
+[x] Special blocks should disappear after a while
+[x] Fix music lag
+[x] Exiting the gameplay exits everyting
+[x] Update team 2 mp3
+[x] Update line clearing sounds
+[x] Rename electric sounds to attack sounds
+[x] Ask Troy MacDonald, Kel Bolden and zhilyaev about being added to test credits
+[x] Download Justin's Team2 Song
+[x] Options Screen
+[x] Special Attack #2: Escalator
+[x] put some punch in the sounds and animation
+[x] Special: Slow Down         
+[x] Piece exploding animation
+[x] Attack arrows are wrong for slowdown and speedup
+[x] Special: Jumble           
+[x] Xbox: clear the background
+[x] Xbox: Help screen is not on the safearea
+[x] XBox: Standings labels are not scaled
+[x] XBox: Standings are too small for 640x480
+[x] Xbox: options too tiny!
+[x] Slowdown is too powerful
+[x] Show score with commas
+[x] Debug rounds = 1000
+[x] Option: Two Players per controller
+[x] XBox: Clean up attack arrows
+
+Version 0.3.2.0
+[x] Computers need to start themselves.        
+[x] Next piece
+[x] Drop shadowing
+[x] Special Attack #1: Speedup
+    [x] Victim Indicator
+    [x] Victim choosing
+    [x] Special blocks
+    [x] Special Activation
+    [x] Attack sound
+    [x] On an attack do a lightning flash on the indicator
+[x] Incorporate Justin's Sounds
+[x] Experiment with MP3 sizes and quality to get the optimal bit rate (24khz, 24 kbs)
+[x] Trim down the size of the Mp3's
+
+Version 0.3.1.0
+    [x] Fix the Sprite Font
+    [x] Optional: 2 players per controller
+    [x] Enable multiple rounds
+
+Version 0.3.0.0
+    [x] Zhilyaev: Added control key “drop, but not fix”. Figure drop dawn and wait 1 step before stuck. Player can move it right or left.
+    [x] Create a forum
+    [x] Set up a regular install over the internet
+    [x] F1 F2 F3 crash, help screen not working  
+    [x] Check against the real xbox to detect more problems
+    [x] (3) Up button should turn the bricks around
+    [x] use keys all over the keyboard - maybe all for "extended keys" if people turn on that option
+    [x] Try to make all controls except drop on one hand, maybe powerups below movement keys
+    [x] Two drop buttons - one is a sticky drop, the other is a regular drop
+    [x] laptop friendly keys
+    
+    [x] Speed up the game
+    [x] Add ability to die
+    [x] Added Backgrounds
+    [x] Added music
+    
+
+Version 0.0.1.0
+[x] Fix the delay at the start
+[x] The enter button from the menu should not start a player
+[x] Block processor might not work for corner type blocks
+[x] 2nd drop should set the piece
+[x] Clear Rows
+[x] Simple computer players
+[x] Sounds
