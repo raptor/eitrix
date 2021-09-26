@@ -57,74 +57,35 @@ namespace Eitrix
             menuKeyMappings.Add(Keys.F1, new InputAction() { ControllerID = 0, PlayerID = Globals.NonPlayer, ActionType = InputActionType.InstantComputer, AnalogValue = 1 });
             menuKeyMappings.Add(Keys.F2, new InputAction() { ControllerID = 0, PlayerID = Globals.NonPlayer, ActionType = InputActionType.Advance, AnalogValue = 1 });
 
-            // Player 1                                                                                              
-            gameKeyMappings.Add(new KeyMapping(Keys.Q, 0, InputActionType.MoveLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.E, 0, InputActionType.MoveRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.W, 0, InputActionType.MoveDown)); 
-            gameKeyMappings.Add(new KeyMapping(Keys.D2, 0, InputActionType.RotateRight)); 
-            gameKeyMappings.Add(new KeyMapping(Keys.OemMinus, 0, InputActionType.RotateRight)); 
-            gameKeyMappings.Add(new KeyMapping(Keys.D1, 0, InputActionType.RotateLeft));  
-            gameKeyMappings.Add(new KeyMapping(Keys.OemTilde, 0, InputActionType.DropAndStick));  
-            gameKeyMappings.Add(new KeyMapping(Keys.P, 0, InputActionType.DropAndStick));
-            gameKeyMappings.Add(new KeyMapping(Keys.Tab, 0, InputActionType.DropAndSlide));  
-            gameKeyMappings.Add(new KeyMapping(Keys.OemOpenBrackets, 0, InputActionType.DropAndSlide));
-            gameKeyMappings.Add(new KeyMapping(Keys.CapsLock, 0, InputActionType.ApplyAntidote));  
-            gameKeyMappings.Add(new KeyMapping(Keys.OemCloseBrackets, 0, InputActionType.ApplyAntidote));   
-            gameKeyMappings.Add(new KeyMapping(Keys.D3, 0, InputActionType.ChangeVictim));  
-            gameKeyMappings.Add(new KeyMapping(Keys.D0, 0, InputActionType.ChangeVictim));
+            // Player 1 (Arrow Keys + ZXCV)
+            gameKeyMappings.Add(new KeyMapping(Keys.Left, 0, InputActionType.MoveLeft));
+            gameKeyMappings.Add(new KeyMapping(Keys.Right, 0, InputActionType.MoveRight));
+            gameKeyMappings.Add(new KeyMapping(Keys.Down, 0, InputActionType.MoveDown));
+            gameKeyMappings.Add(new KeyMapping(Keys.Up, 0, InputActionType.DropAndStick));
+            gameKeyMappings.Add(new KeyMapping(Keys.Z, 0, InputActionType.RotateLeft));
+            gameKeyMappings.Add(new KeyMapping(Keys.X, 0, InputActionType.RotateRight));
+            gameKeyMappings.Add(new KeyMapping(Keys.C, 0, InputActionType.ApplyAntidote));
+            gameKeyMappings.Add(new KeyMapping(Keys.V, 0, InputActionType.ChangeVictim));
 
+            // Player 2 (WASD + HJKL)
+            gameKeyMappings.Add(new KeyMapping(Keys.A, 1, InputActionType.MoveLeft));
+            gameKeyMappings.Add(new KeyMapping(Keys.D, 1, InputActionType.MoveRight));
+            gameKeyMappings.Add(new KeyMapping(Keys.S, 1, InputActionType.MoveDown));
+            gameKeyMappings.Add(new KeyMapping(Keys.W, 1, InputActionType.DropAndStick));
+            gameKeyMappings.Add(new KeyMapping(Keys.H, 1, InputActionType.RotateLeft));
+            gameKeyMappings.Add(new KeyMapping(Keys.J, 1, InputActionType.RotateRight));
+            gameKeyMappings.Add(new KeyMapping(Keys.K, 1, InputActionType.ApplyAntidote));
+            gameKeyMappings.Add(new KeyMapping(Keys.L, 1, InputActionType.ChangeVictim));
 
-            // Player 2
-            gameKeyMappings.Add(new KeyMapping(Keys.U, 1, InputActionType.MoveLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.O, 1, InputActionType.MoveRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.I, 1, InputActionType.MoveDown));
-            gameKeyMappings.Add(new KeyMapping(Keys.D8, 1, InputActionType.RotateRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.D7, 1, InputActionType.RotateLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.X, 1, InputActionType.RotateLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.Y, 1, InputActionType.DropAndStick));
-            gameKeyMappings.Add(new KeyMapping(Keys.C, 1, InputActionType.DropAndStick));
-            gameKeyMappings.Add(new KeyMapping(Keys.H, 1, InputActionType.DropAndSlide));
-            gameKeyMappings.Add(new KeyMapping(Keys.V, 1, InputActionType.DropAndSlide));
-            gameKeyMappings.Add(new KeyMapping(Keys.N, 1, InputActionType.ApplyAntidote));
-            gameKeyMappings.Add(new KeyMapping(Keys.B, 1, InputActionType.ApplyAntidote));
-            gameKeyMappings.Add(new KeyMapping(Keys.D9, 1, InputActionType.ChangeVictim));
-            gameKeyMappings.Add(new KeyMapping(Keys.G, 1, InputActionType.ChangeVictim));
-
-            // Player 3
-            gameKeyMappings.Add(new KeyMapping(Keys.Left, 2, InputActionType.MoveLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.Delete, 2, InputActionType.MoveLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.Right, 2, InputActionType.MoveRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.PageDown, 2, InputActionType.MoveRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.Down, 2, InputActionType.MoveDown));
-            gameKeyMappings.Add(new KeyMapping(Keys.End, 2, InputActionType.MoveDown));
-            gameKeyMappings.Add(new KeyMapping(Keys.Up, 2, InputActionType.RotateRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.Home, 2, InputActionType.RotateRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.L, 2, InputActionType.RotateLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.OemSemicolon, 2, InputActionType.RotateLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.Enter, 2, InputActionType.DropAndStick));
-            gameKeyMappings.Add(new KeyMapping(Keys.M, 2, InputActionType.DropAndStick));
-            gameKeyMappings.Add(new KeyMapping(Keys.RightShift, 2, InputActionType.DropAndSlide));
-            gameKeyMappings.Add(new KeyMapping(Keys.OemComma, 2, InputActionType.DropAndSlide));
-            gameKeyMappings.Add(new KeyMapping(Keys.RightControl, 2, InputActionType.ApplyAntidote));
-            gameKeyMappings.Add(new KeyMapping(Keys.OemPeriod, 2, InputActionType.ApplyAntidote));
-            gameKeyMappings.Add(new KeyMapping(Keys.PageUp, 2, InputActionType.ChangeVictim));
-            gameKeyMappings.Add(new KeyMapping(Keys.OemQuestion, 2, InputActionType.ChangeVictim));
-            gameKeyMappings.Add(new KeyMapping(Keys.OemQuotes, 2, InputActionType.ChangeVictim));
-
-            // Player 4
-            gameKeyMappings.Add(new KeyMapping(Keys.NumPad8, 3, InputActionType.MoveLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.Add, 3, InputActionType.MoveRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.NumPad9, 3, InputActionType.MoveDown));
-            gameKeyMappings.Add(new KeyMapping(Keys.Multiply, 3, InputActionType.RotateRight));
-            gameKeyMappings.Add(new KeyMapping(Keys.Divide, 3, InputActionType.RotateLeft));
-            gameKeyMappings.Add(new KeyMapping(Keys.NumPad4, 3, InputActionType.DropAndStick));
-            gameKeyMappings.Add(new KeyMapping(Keys.S, 3, InputActionType.DropAndStick));
-            gameKeyMappings.Add(new KeyMapping(Keys.NumPad1, 3, InputActionType.DropAndSlide));
-            gameKeyMappings.Add(new KeyMapping(Keys.D, 3, InputActionType.DropAndSlide));
-            gameKeyMappings.Add(new KeyMapping(Keys.NumPad0, 3, InputActionType.ApplyAntidote));
-            gameKeyMappings.Add(new KeyMapping(Keys.F, 3, InputActionType.ApplyAntidote));
-            gameKeyMappings.Add(new KeyMapping(Keys.Subtract, 3, InputActionType.ChangeVictim));
-            gameKeyMappings.Add(new KeyMapping(Keys.R, 3, InputActionType.ChangeVictim));
+            // Player 3 (Numpad)
+            gameKeyMappings.Add(new KeyMapping(Keys.NumPad1, 2, InputActionType.MoveLeft));
+            gameKeyMappings.Add(new KeyMapping(Keys.NumPad3, 2, InputActionType.MoveRight));
+            gameKeyMappings.Add(new KeyMapping(Keys.NumPad2, 2, InputActionType.MoveDown));
+            gameKeyMappings.Add(new KeyMapping(Keys.NumPad5, 2, InputActionType.DropAndStick));
+            gameKeyMappings.Add(new KeyMapping(Keys.NumPad4, 2, InputActionType.RotateLeft));
+            gameKeyMappings.Add(new KeyMapping(Keys.NumPad6, 2, InputActionType.RotateRight));
+            gameKeyMappings.Add(new KeyMapping(Keys.NumPad0, 2, InputActionType.ApplyAntidote));
+            gameKeyMappings.Add(new KeyMapping(Keys.OemPlus, 2, InputActionType.ChangeVictim));
         }
 
         /// ---------------------------------------------------------------------------------
