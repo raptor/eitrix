@@ -50,7 +50,8 @@ namespace Eitrix
                 if (DateTime.Today < new DateTime(2011, 6, 14)
                     && DateTime.Today > new DateTime(2011, 6, 7))
                     return false;
-                else return Microsoft.Xna.Framework.GamerServices.Guide.IsTrialMode;
+                //FIXME else return Microsoft.Xna.Framework.GamerServices.Guide.IsTrialMode;
+                else return false;
             }
         }
 

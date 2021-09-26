@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Storage;
 using System.IO;
-using Microsoft.Xna.Framework.GamerServices;
 using System.Diagnostics;
 
 namespace Eitrix
@@ -22,7 +20,7 @@ namespace Eitrix
     public static class DiskStorage
     {
         public static string StorageName = "GenericStorage";
-        static StorageDevice storageDevice;
+        //static StorageDevice storageDevice;
         static DateTime lastStorageRequest = DateTime.MinValue;
 #if XBOX360
         static IAsyncResult storageResult;
@@ -77,7 +75,7 @@ namespace Eitrix
             finally
             {
                 if (stream != null) stream.Close();
-                if (container != null) container.Dispose();
+                //if (container != null) container.Dispose();
             }
         }
 
@@ -111,7 +109,7 @@ namespace Eitrix
             finally
             {               
                 if (stream != null) stream.Close();
-                if (container != null) container.Dispose();
+                //FIXME if (container != null) container.Dispose();
             }
         }
 
@@ -166,7 +164,7 @@ namespace Eitrix
         /// -----------------------------------------------------------------------
         static void StorageCompletedCallback(IAsyncResult result)
         {
-            storageDevice = Guide.EndShowStorageDeviceSelector(result);
+            //FIXME storageDevice = Guide.EndShowStorageDeviceSelector(result);
             available = true;
         }
 

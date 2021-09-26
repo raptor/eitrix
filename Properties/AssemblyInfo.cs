@@ -8,10 +8,7 @@ using System;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Eitrix")]
-[assembly: AssemblyProduct("Eitrix")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("Microsoft")]
 
 [assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
 [assembly: AssemblyTrademark("")]
@@ -33,7 +30,6 @@ using System;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.3.7.000")]
 
 
 /// --------------------------------------------------------------------------

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.GamerServices;
 
 namespace Eitrix
 {
@@ -132,22 +131,23 @@ namespace Eitrix
         /// ---------------------------------------------------------------
         private void AttemptShowMarketplace(bool buyGameAllowed, PlayerIndex actualBuyer, PlayerIndex? possibleBuyer)
         {
-            if (buyGameAllowed)
-            {
-                try
-                {
-                    Guide.ShowMarketplace(actualBuyer);
-                }
-                catch (Exception)
-                {
-                    audioTool.PlaySound(SoundEffectType.Bump, 1, -1, 0);
-                    stopShowMarketplaceFail = DateTime.Now.AddSeconds(6);
-                    marketplaceFailText = "Please purchase using \na valid XBox Live profile";
-                    if (possibleBuyer != null)
-                        marketplaceFailText += "\n (One is signed in to \ncontroller "
-                            + possibleBuyer.ToString() + ")";
-                }
-            }
+            // Fixme
+            //if (buyGameAllowed)
+            //{
+            //    try
+            //    {
+            //        Guide.ShowMarketplace(actualBuyer);
+            //    }
+            //    catch (Exception)
+            //    {
+            //        audioTool.PlaySound(SoundEffectType.Bump, 1, -1, 0);
+            //        stopShowMarketplaceFail = DateTime.Now.AddSeconds(6);
+            //        marketplaceFailText = "Please purchase using \na valid XBox Live profile";
+            //        if (possibleBuyer != null)
+            //            marketplaceFailText += "\n (One is signed in to \ncontroller "
+            //                + possibleBuyer.ToString() + ")";
+            //    }
+            //}
         }
 
         /// ---------------------------------------------------------------
@@ -158,12 +158,13 @@ namespace Eitrix
         private bool IsBuyGameAllowed(out Nullable<PlayerIndex> playerIndex)
         {
             playerIndex = null;
-            if (!Guide.IsTrialMode) { return false; }
-            foreach (SignedInGamer gamer in Gamer.SignedInGamers)
-            {
-                if (gamer.Privileges.AllowPurchaseContent)
-                { playerIndex = gamer.PlayerIndex; return true; }
-            }
+            // FIxme
+            //if (!Guide.IsTrialMode) { return false; }
+            //foreach (SignedInGamer gamer in Gamer.SignedInGamers)
+            //{
+            //    if (gamer.Privileges.AllowPurchaseContent)
+            //    { playerIndex = gamer.PlayerIndex; return true; }
+            //}
             return false;
         }
 

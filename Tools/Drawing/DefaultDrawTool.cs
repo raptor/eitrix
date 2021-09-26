@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using System.Diagnostics;
 
 namespace Eitrix
@@ -1464,7 +1461,7 @@ namespace Eitrix
             float itemHeight = Fonts.MenuFont.LineSpacing * menuScale;
 
             //  Draw Logo and Version
-            SafePrint(Width - 150, 5, Color.Black, Fonts.DebugFont, "ver " + AssemblyConstants.Version);
+            SafePrint(Width - 150, 5, Color.Black, Fonts.DebugFont, "ver FIXME");// + AssemblyConstants.Version);
             DrawSprite(drawX / 2, drawY - Textures.Logo.Height * screenSizeFactor * 1.1f, Textures.LogoShadow, Color.Black, 0, screenSizeFactor);
             DrawSprite(drawX / 2, drawY - Textures.Logo.Height * screenSizeFactor * 1.1f, Textures.Logo, Color.White, 0, screenSizeFactor);
 
@@ -1608,11 +1605,12 @@ namespace Eitrix
         /// -------------------------------------------------------------
         private bool CheckBuyGameAllowed()
         {
-            bool buyGameAllowed = Guide.IsTrialMode;
-            foreach (SignedInGamer gamer in Gamer.SignedInGamers)
-            {
-                if (gamer.IsSignedInToLive) return buyGameAllowed;
-            }
+                // FIXME
+            //bool buyGameAllowed = Guide.IsTrialMode;
+            //foreach (SignedInGamer gamer in Gamer.SignedInGamers)
+            //{
+            //    if (gamer.IsSignedInToLive) return buyGameAllowed;
+            //}
             return false;
         }
 
