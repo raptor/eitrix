@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Storage;
 
 namespace Eitrix
 {
@@ -20,11 +21,7 @@ namespace Eitrix
     public static class DiskStorage
     {
         public static string StorageName = "GenericStorage";
-        //static StorageDevice storageDevice;
         static DateTime lastStorageRequest = DateTime.MinValue;
-#if XBOX360
-        static IAsyncResult storageResult;
-#endif
 
         private static bool available = false;
         public static bool Available { get { return available; } }
@@ -53,12 +50,6 @@ namespace Eitrix
             FileStream stream = null;
             try
             {
-#if XBOX360
-                if (storageDevice == null || !storageDevice.IsConnected)
-                {
-                    return;
-                }
-#endif
                 string fullpath = GetLocalPath(fileName, ref container);
                 if (!File.Exists(fullpath)) throw new FileNotFoundException("Can't find '" + fileName + "'");
 
@@ -75,7 +66,7 @@ namespace Eitrix
             finally
             {
                 if (stream != null) stream.Close();
-                //if (container != null) container.Dispose();
+                if (container != null) container.Dispose();
             }
         }
 
@@ -91,12 +82,6 @@ namespace Eitrix
             FileStream stream = null;
             try
             {
-#if XBOX360
-                if (storageDevice == null || !storageDevice.IsConnected)
-                {
-                    return;
-                }
-#endif
                 string fullpath = GetLocalPath(fileName, ref container);
                 if (File.Exists(fullpath)) File.Delete(fullpath);
                 stream = File.Open(fullpath, FileMode.OpenOrCreate);
@@ -109,7 +94,7 @@ namespace Eitrix
             finally
             {               
                 if (stream != null) stream.Close();
-                //FIXME if (container != null) container.Dispose();
+                if (container != null) container.Dispose();
             }
         }
 
@@ -120,13 +105,8 @@ namespace Eitrix
         /// -----------------------------------------------------------------------
         private static string GetLocalPath(string fileName, ref StorageContainer container)
         {
-#if XBOX360
-            container = storageDevice.OpenContainer(StorageName);
-            string fullpath = Path.Combine(container.Path, fileName);
-#else
             string fullpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),@"SavedGames\" + StorageName + @"\AllPlayers\" + fileName);
             if (!Directory.Exists(Path.GetDirectoryName(fullpath))) Directory.CreateDirectory(Path.GetDirectoryName(fullpath));
-#endif
             return fullpath;
         }
 
@@ -137,36 +117,7 @@ namespace Eitrix
         /// -----------------------------------------------------------------------
         private static void StartStorageRequest()
         {
-#if XBOX360
-            if ((DateTime.Now - lastStorageRequest).TotalSeconds > 3)
-            {
-                try
-                {
-                    // Set the request flag
-                    if ((!Guide.IsVisible))
-                    {
-                        lastStorageRequest = DateTime.Now;
-                        storageResult = Guide.BeginShowStorageDeviceSelector(StorageCompletedCallback, null);
-                    }
-                }
-                catch (Exception) { }
-            }
-#else
-            available = true;     
-#endif
-
-        }
-
-        /// -----------------------------------------------------------------------
-        /// <summary>
-        /// Callback for storage request
-        /// </summary>
-        /// -----------------------------------------------------------------------
-        static void StorageCompletedCallback(IAsyncResult result)
-        {
-            //FIXME storageDevice = Guide.EndShowStorageDeviceSelector(result);
             available = true;
         }
-
     }
 }

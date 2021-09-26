@@ -8,10 +8,6 @@ namespace Eitrix
         /// </summary>
         static void Main(string[] args)
         {
-#if WINDOWS
-            DialogResult result = System.Windows.Forms.MessageBox.Show("Use full screen display?", "Eitrix", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes) Globals.FullScreenMode = true;
-#endif
             try
             {
                 foreach (string arg in args)
@@ -34,12 +30,7 @@ namespace Eitrix
                 string desktopFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 string errorFileName = System.IO.Path.Combine(desktopFolder, "EitrixError.txt");
                 System.IO.File.WriteAllText(errorFileName, e.ToString());
-                System.Windows.Forms.MessageBox.Show(
-                    "Eitrix encountered program error.  Please send the contents of EitrixError.txt on your desktop to support@betafreak.com.",
-                    "Eitrix Error");
-
 #endif
-
             }
 #endif
             finally

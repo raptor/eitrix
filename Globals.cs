@@ -40,19 +40,7 @@ namespace Eitrix
 
         public static bool IsTrialMode
         {
-            get
-            {
-
-                // Turn off upselling in December 2010, and June 2011
-                if (DateTime.Today < new DateTime(2010, 12, 14)
-                    && DateTime.Today > new DateTime(2010, 12, 7))
-                    return false;
-                if (DateTime.Today < new DateTime(2011, 6, 14)
-                    && DateTime.Today > new DateTime(2011, 6, 7))
-                    return false;
-                //FIXME else return Microsoft.Xna.Framework.GamerServices.Guide.IsTrialMode;
-                else return false;
-            }
+            get { return false; }
         }
 
         /// --------------------------------------------------------------

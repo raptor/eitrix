@@ -23,6 +23,7 @@ namespace Eitrix
     public partial class DefaultDrawTool : IDrawTool
     {
         GraphicsDeviceManager graphics { get; set; }
+        PresentationParameters presentationParameters { get; set; }
         SpriteBatch spriteBatch { get; set; }
         public int Width { get { return SafeArea.Width; } }
         public int Height { get { return SafeArea.Height; } }
@@ -119,7 +120,7 @@ namespace Eitrix
 
         public void Reset()
         {
-            graphics.GraphicsDevice.Reset();
+            graphics.GraphicsDevice.Reset(presentationParameters);
         }
 
         /// -------------------------------------------------------------
@@ -163,8 +164,7 @@ namespace Eitrix
                 targetHeight = 480;
             }
 
-            System.Drawing.Rectangle screenRect = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
-            double aspectRatio = (double)screenRect.Width / screenRect.Height;
+            double aspectRatio = (double)targetWidth / targetHeight;
 
             foreach (Microsoft.Xna.Framework.Graphics.DisplayMode displayMode
                 in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
@@ -182,16 +182,13 @@ namespace Eitrix
                     if (Globals.FullScreenMode)
                     {
                         e.GraphicsDeviceInformation.PresentationParameters.
-                            FullScreenRefreshRateInHz = displayMode.RefreshRate;
-                        e.GraphicsDeviceInformation.PresentationParameters.
                             IsFullScreen = true;
                     }
 #if !DEBUG
                     //e.GraphicsDeviceInformation.PresentationParameters.
-                    //    FullScreenRefreshRateInHz = displayMode.RefreshRate;
-                    //e.GraphicsDeviceInformation.PresentationParameters.
                     //    IsFullScreen = true;
 #endif // DEBUG
+                    presentationParameters = e.GraphicsDeviceInformation.PresentationParameters;
                     break;
                 }
             }
@@ -258,7 +255,7 @@ namespace Eitrix
             {
                 return Content.Load<Texture2D>(contentName);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 if (defaultTexture == null) defaultTexture = Content.Load<Texture2D>("Images/DefaultImage");
                 return defaultTexture;
@@ -296,7 +293,7 @@ namespace Eitrix
         {
             if (!batchStarted)
             {
-                spriteBatch.Begin();
+                spriteBatch.Begin(blendState: BlendState.AlphaBlend);
                 batchStarted = true;
             }
 
@@ -1461,7 +1458,7 @@ namespace Eitrix
             float itemHeight = Fonts.MenuFont.LineSpacing * menuScale;
 
             //  Draw Logo and Version
-            SafePrint(Width - 150, 5, Color.Black, Fonts.DebugFont, "ver FIXME");// + AssemblyConstants.Version);
+            SafePrint(Width - 150, 5, Color.Black, Fonts.DebugFont, "ver " + AssemblyConstants.Version);
             DrawSprite(drawX / 2, drawY - Textures.Logo.Height * screenSizeFactor * 1.1f, Textures.LogoShadow, Color.Black, 0, screenSizeFactor);
             DrawSprite(drawX / 2, drawY - Textures.Logo.Height * screenSizeFactor * 1.1f, Textures.Logo, Color.White, 0, screenSizeFactor);
 
@@ -1595,23 +1592,6 @@ namespace Eitrix
                 SafePrintOptionPair(x, xtab1, (int)(optionY), color, optionScaleFactor, options[index].FirstValue, options[index].SecondValue.Value);
             }
 
-        }
-
-
-        /// -------------------------------------------------------------
-        /// <summary>
-        /// Checks that there is at least one Live profile
-        /// </summary>
-        /// -------------------------------------------------------------
-        private bool CheckBuyGameAllowed()
-        {
-                // FIXME
-            //bool buyGameAllowed = Guide.IsTrialMode;
-            //foreach (SignedInGamer gamer in Gamer.SignedInGamers)
-            //{
-            //    if (gamer.IsSignedInToLive) return buyGameAllowed;
-            //}
-            return false;
         }
 
         Block[] HelpBlocks;

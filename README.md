@@ -6,7 +6,7 @@ Multiplayer attack mode falling blocks game
 
 To set up for Development:
 
-* Install [XNA Game Studio for Visual Studio 2019](https://ridilabs.net/post/2019/09/20/Installing-XNA-on-Visual-Studio-2019.aspx#.YU-xDrhKgqk)
+* Install MonoGame (TODO: This should be installed as a Nuget package, add instructions here)
 
 * Install mgcb editor via nuget
 

@@ -8,6 +8,8 @@ using System;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+[assembly: AssemblyTitle("Eitrix")]
+[assembly: AssemblyProduct("Eitrix")]
 [assembly: AssemblyDescription("")]
 
 [assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
@@ -30,7 +32,7 @@ using System;
 //      Build Number
 //      Revision
 //
-
+[assembly: AssemblyVersion("0.4.0.000")]
 
 /// --------------------------------------------------------------------------
 /// <summary>
@@ -52,14 +54,6 @@ public static class AssemblyConstants
     {
         //Default to the version of the currently executing Assembly
         Version version = Assembly.GetExecutingAssembly().GetName().Version;
-
-        
-#if WINDOWS
-        if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
-        {
-            version = System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion;
-        }
-#endif
 
         Version = version.ToString();
     }
