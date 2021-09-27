@@ -25,7 +25,7 @@ namespace Eitrix
         public MenuChoice MenuChoice;
         DateTime timeEnteredScreen;
         DateTime stopShowMarketplaceFail;
-        string marketplaceFailText;
+        //string marketplaceFailText;
 
 
         /// ---------------------------------------------------------------
@@ -94,8 +94,8 @@ namespace Eitrix
                             MenuChoice--;
                             audioTool.PlaySound(SoundEffectType.Dot, 1, .2f, 0);
                             if (MenuChoice < 0) MenuChoice = MenuChoice.NumberOfChoices - 1;
-                            else if (MenuChoice == MenuChoice.Purchase
-                                && !buyGameAllowed) MenuChoice--;
+                            //else if (MenuChoice == MenuChoice.Purchase
+                            //    && !buyGameAllowed) MenuChoice--;
                             stopShowMarketplaceFail = DateTime.Now.AddSeconds(-1);
                             break;
                         case InputActionType.MenuRight:
@@ -103,8 +103,8 @@ namespace Eitrix
                             MenuChoice++;
                             audioTool.PlaySound(SoundEffectType.Dot, 1, -.2f, 0);
                             if (MenuChoice >= MenuChoice.NumberOfChoices) MenuChoice = 0;
-                            else if (MenuChoice == MenuChoice.Purchase
-                                && !buyGameAllowed) MenuChoice++;
+                            //else if (MenuChoice == MenuChoice.Purchase
+                            //    && !buyGameAllowed) MenuChoice++;
                             stopShowMarketplaceFail = DateTime.Now.AddSeconds(-1);
                             break;
                         default:

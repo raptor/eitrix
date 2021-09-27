@@ -103,7 +103,7 @@ namespace Eitrix
         /// ---------------------------------------------------------
         public XnaAudioTool()
         {
-            MediaPlayer.MediaStateChanged += new EventHandler(MediaPlayer_MediaStateChanged);
+           // FIXME MediaPlayer.MediaStateChanged += new EventHandler(MediaPlayer_MediaStateChanged);
         }
 
         /// ---------------------------------------------------------
