@@ -30,19 +30,17 @@ namespace Eitrix
         Screen currentScreen;
 
         Exception caughtException;
-        //string errorOutputFile;
+        string errorOutputFile;
         Exception CaughtException
         {
             get { return caughtException; }
             set
             {
-#if WINDOWS
                 if (caughtException == null)
                 {
                     errorOutputFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "EitrixError.txt");
                     File.WriteAllText(errorOutputFile, value.ToString());
                 }
-#endif
 
                 caughtException = value;
             }
