@@ -8,8 +8,6 @@ using System;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Eitrix")]
-[assembly: AssemblyProduct("Eitrix")]
 [assembly: AssemblyDescription("")]
 
 [assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
@@ -25,14 +23,6 @@ using System;
 [assembly: Guid("25072692-4720-431f-ae74-2ce008eeba63")]
 
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-[assembly: AssemblyVersion("0.4.0.000")]
 
 /// --------------------------------------------------------------------------
 /// <summary>

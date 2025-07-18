@@ -1467,9 +1467,7 @@ namespace Eitrix
             for(int i=0; i < (int)MenuChoice.NumberOfChoices; i++)
             {
                 MenuChoice choice = (MenuChoice)i;
-#if WINDOWS
-                if (choice == MenuChoice.Purchase) continue;
-#endif
+
                 Color choiceColor = new Color(.7f, .7f, .7f);
                 if (selectedOption == choice)
                 {
