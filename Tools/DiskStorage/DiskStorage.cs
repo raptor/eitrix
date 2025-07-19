@@ -104,9 +104,30 @@ namespace Eitrix
         /// -----------------------------------------------------------------------
         private static string GetLocalPath(string fileName, ref StorageContainer container)
         {
-            string fullpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),@"SavedGames\" + StorageName + @"\AllPlayers\" + fileName);
-            if (!Directory.Exists(Path.GetDirectoryName(fullpath))) Directory.CreateDirectory(Path.GetDirectoryName(fullpath));
-            return fullpath;
+            string localStoragePath;
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT || Environment.OSVersion.Platform == PlatformID.Xbox)
+            {
+                localStoragePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    @"SavedGames\" + StorageName + @"\AllPlayers\" + fileName
+                    );
+            }            
+            else  // Unix
+            {
+                string[] paths = {
+                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    @".config", StorageName, @"SavedGames", @"AllPlayers", fileName
+                };
+
+                localStoragePath = Path.Combine(paths);
+            }
+
+            if (!Directory.Exists(Path.GetDirectoryName(localStoragePath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(localStoragePath));
+            }
+            
+            return localStoragePath;
         }
 
         /// -----------------------------------------------------------------------
