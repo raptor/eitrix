@@ -111,7 +111,8 @@ namespace Eitrix
         public DefaultDrawTool(Game game)
         {
             this.graphics = new GraphicsDeviceManager(game);
-#if WINDOWS
+#if XBOX            
+#else
             graphics.PreparingDeviceSettings +=
                 new EventHandler<PreparingDeviceSettingsEventArgs>
                     (SetUpGraphics);
@@ -140,7 +141,8 @@ namespace Eitrix
             if (borderWidth != 0) Globals.LowResolution = true;
         }
 
-#if WINDOWS
+#if XBOX
+#else
         /// -------------------------------------------------------------
         /// <summary>
         /// Sets the screen mode for this game
@@ -154,44 +156,25 @@ namespace Eitrix
             int targetHeight = 768;
             if (Globals.FullScreenMode)
             {
-                //848x480
-                targetWidth = 1920;
-                targetHeight = 1080;
+                targetWidth  = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                targetHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+
+                e.GraphicsDeviceInformation.PresentationParameters.IsFullScreen = true;
             }
             if(forceSmall)
             {
                 targetWidth = 640;
                 targetHeight = 480;
             }
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = targetHeight;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth  = targetWidth;
 
-            double aspectRatio = (double)targetWidth / targetHeight;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferFormat =
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Format;
 
-            foreach (Microsoft.Xna.Framework.Graphics.DisplayMode displayMode
-                in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
-            {
-                Debug.WriteLine(displayMode.Width.ToString() + "x" + displayMode.Height.ToString());
-                if (displayMode.Width == targetWidth && displayMode.Height == targetHeight)
-                {
-                    e.GraphicsDeviceInformation.PresentationParameters.
-                        BackBufferFormat = displayMode.Format;
-                    e.GraphicsDeviceInformation.PresentationParameters.
-                        BackBufferHeight = displayMode.Height;
-                    e.GraphicsDeviceInformation.PresentationParameters.
-                        BackBufferWidth = displayMode.Width;
+            presentationParameters = e.GraphicsDeviceInformation.PresentationParameters;
 
-                    if (Globals.FullScreenMode)
-                    {
-                        e.GraphicsDeviceInformation.PresentationParameters.
-                            IsFullScreen = true;
-                    }
-#if !DEBUG
-                    //e.GraphicsDeviceInformation.PresentationParameters.
-                    //    IsFullScreen = true;
-#endif // DEBUG
-                    presentationParameters = e.GraphicsDeviceInformation.PresentationParameters;
-                    break;
-                }
-            }
+            double aspectRatio = (double)targetWidth / targetHeight;  // unused?
         }
 #endif // WINDOWS
 
