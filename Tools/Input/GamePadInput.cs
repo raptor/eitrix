@@ -81,10 +81,11 @@ namespace Eitrix
         /// ------------------------------------------------------------------------
         public override void UpdateInput()
         {
-            UpdateInputFromController(PlayerIndex.One);
-            UpdateInputFromController(PlayerIndex.Two);
-            UpdateInputFromController(PlayerIndex.Three);
-            UpdateInputFromController(PlayerIndex.Four);
+            // Loop through all possible controllers on this platform
+            for (int ii = 0; ii < GamePad.MaximumGamePadCount; ii++)
+            {
+                UpdateInputFromController(ii);
+            }
             DoneWithFrame();
         }
 
@@ -101,7 +102,7 @@ namespace Eitrix
         /// Update input from a single controller
         /// </summary>
         /// ------------------------------------------------------------------------
-        private void UpdateInputFromController(PlayerIndex playerIndex)
+        private void UpdateInputFromController(int playerIndex)
         {
             GamePadState padState = GamePad.GetState(playerIndex);
             if (!padState.IsConnected) return;
@@ -109,7 +110,7 @@ namespace Eitrix
             // for guitar controllers, we don't want to try to use it because the
             // wammy bar has a high value at rest.  Instead, we'll look for presses
             // or movement
-            if (!controllerUsable[(int)playerIndex])
+            if (!controllerUsable[playerIndex])
             {
                 if (padState.DPad.Down == ButtonState.Pressed ||
                     padState.DPad.Up == ButtonState.Pressed ||
@@ -122,23 +123,23 @@ namespace Eitrix
                     padState.Buttons.A == ButtonState.Pressed ||
                     padState.Buttons.B == ButtonState.Pressed ||
                     padState.Buttons.Start == ButtonState.Pressed ||
-                    (controllerGotAHighStick[(int)playerIndex] && controllerGotALowStick[(int)playerIndex]))
+                    (controllerGotAHighStick[playerIndex] && controllerGotALowStick[playerIndex]))
                 {
-                    controllerUsable[(int)playerIndex] = true;
+                    controllerUsable[playerIndex] = true;
                 }
 
-                if (Math.Abs(padState.ThumbSticks.Left.Y) > 0.6) controllerGotAHighStick[(int)playerIndex] = true;
-                if (Math.Abs(padState.ThumbSticks.Left.Y) < 0.2) controllerGotALowStick[(int)playerIndex] = true;
+                if (Math.Abs(padState.ThumbSticks.Left.Y) > 0.6) controllerGotAHighStick[playerIndex] = true;
+                if (Math.Abs(padState.ThumbSticks.Left.Y) < 0.2) controllerGotALowStick[playerIndex] = true;
 
                 return;
             }
 
             foreach (PadReader readerMethod in readerMethods)
             {
-                InputAction newAction = readerMethod(padState, (int)playerIndex);
+                InputAction newAction = readerMethod(padState, playerIndex);
                 if (newAction != null)
                 {
-                    newAction.ControllerID = (int)playerIndex;
+                    newAction.ControllerID = playerIndex;
                     AddAction(newAction);
                 }
             }
