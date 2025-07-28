@@ -158,10 +158,12 @@ namespace Eitrix
             {
                 "Sounds/Music/Solarwind_4-traumas", 
                 "Sounds/Music/team_2", 
-                "Sounds/Music/up_stream_03_farly and big bird", 
+                // "Sounds/Music/up_stream_03_farly and big bird", 
                 "Sounds/Music/Cl-chip1", 
                 "Sounds/Music/Beast-pl", 
                 "Sounds/Music/Cutdry", 
+                "Sounds/Music/aryx", 
+                "Sounds/Music/dervish", 
 
 
 
