@@ -678,7 +678,7 @@ namespace Eitrix
             TimeWatcher brickTimer;
             protected int y;
             protected int blockType;
-            protected double secondsPerRow = 0.1;
+            protected double secondsPerRow = 0.067;
             protected bool reverse;
 
             protected abstract string[] Shape {get;}
@@ -878,7 +878,7 @@ namespace Eitrix
         public class Antidote : Special
         {
             int MaxAntidotes = 4;
-            
+
             public override SpecialType SpecialType { get { return SpecialType.Antidote; } }
 
             public Antidote(Player owner, World world)
