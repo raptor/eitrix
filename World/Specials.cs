@@ -877,6 +877,8 @@ namespace Eitrix
         ///------------------------------------------------------------------------------
         public class Antidote : Special
         {
+            int MaxAntidotes = 4;
+            
             public override SpecialType SpecialType { get { return SpecialType.Antidote; } }
 
             public Antidote(Player owner, World world)
@@ -899,8 +901,13 @@ namespace Eitrix
 
             internal override void AddToPlayer()
             {
-                CooperativeVictim.AddWeapon(this);
-                world.AudioTool.PlaySound(SoundEffectType.Trans03_Chimes);
+                // Limit total number of antidotes
+                if (CooperativeVictim.Weapons.Count < MaxAntidotes)
+                {
+                    CooperativeVictim.AddWeapon(this);
+                }
+
+                world.AudioTool.PlaySound(SoundEffectType.Trans03_Chimes);  
             }
         }
     }
