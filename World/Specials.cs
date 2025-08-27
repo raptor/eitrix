@@ -24,6 +24,7 @@ namespace Eitrix
         SwitchScreens,
         FreezeDried,
         Transparency,
+        ClearScreen,
         NumberOfSpecials
     }
 
@@ -74,7 +75,7 @@ namespace Eitrix
         internal static void ActivateSpecial(SpecialType SpecialType, Player owner, World world)
         {
             if (SpecialType == SpecialType.None) return;
-
+            // SpecialType = SpecialType.ClearScreen;  // DEBUG
             Player victim = world.Players[owner.VictimId];
             Special newSpecial = null;
 
@@ -96,6 +97,7 @@ namespace Eitrix
                 case SpecialType.SwitchScreens: newSpecial = new Special.SwitchScreens(owner, world); break;
                 case SpecialType.FreezeDried: newSpecial = new Special.FreezeDried(owner, world); break;
                 case SpecialType.Transparency: newSpecial = new Special.Transparency(owner, world); break;
+                case SpecialType.ClearScreen: newSpecial = new Special.ClearScreen(owner, world); break;
                 default: newSpecial = null; break;
             }
 
@@ -137,6 +139,40 @@ namespace Eitrix
         /// ##########################################################################################################
         /// ##########################################################################################################
         /// ##########################################################################################################
+
+
+        ///------------------------------------------------------------------------------
+        /// <summary>
+        /// ClearScreen
+        /// </summary>
+        ///------------------------------------------------------------------------------
+        public class ClearScreen : Special
+        {
+            public override SpecialType SpecialType { get { return SpecialType.ClearScreen; } }
+
+            public ClearScreen(Player owner, World world)
+                : base(owner, world)
+            {
+            }
+            public override void Update()
+            {
+            }
+
+            internal override void AddToPlayer()
+            {
+                world.AudioTool.PlaySound(SoundEffectType.Dentdril, 1, 0, 0);
+
+                // TODO flash background
+
+                // Null the whole grid
+                for (int y = 0; y < CooperativeVictim.Grid.Height; y++)
+                    for (int x = 0; x < CooperativeVictim.Grid.Width; x++)
+                        CooperativeVictim.Grid[x, y] = null;
+
+                Finished = true;
+            }
+        }
+
 
         ///------------------------------------------------------------------------------
         /// <summary>

@@ -43,6 +43,7 @@ namespace Eitrix
         CrowdAww,
         CymbalLong,
         CymbalShort,
+        Dentdril,
         Dot,
         Dot01,
         Dot02,

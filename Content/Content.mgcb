@@ -673,6 +673,12 @@
 /processorParam:Quality=Best
 /build:Sounds/CymbalShort.wav
 
+#begin Sounds/Dentdril.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Dentdril.wav
+
 #begin Sounds/Dot.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
