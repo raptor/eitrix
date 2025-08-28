@@ -75,7 +75,6 @@ namespace Eitrix
         internal static void ActivateSpecial(SpecialType SpecialType, Player owner, World world)
         {
             if (SpecialType == SpecialType.None) return;
-            // SpecialType = SpecialType.ClearScreen;  // DEBUG
             Player victim = world.Players[owner.VictimId];
             Special newSpecial = null;
 
