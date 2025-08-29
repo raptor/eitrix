@@ -613,6 +613,12 @@
 /processorParam:Quality=Best
 /build:Sounds/Attack13_CrazyLaugh.wav
 
+#begin Sounds/Bing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Bing.wav
+
 #begin Sounds/Bump.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

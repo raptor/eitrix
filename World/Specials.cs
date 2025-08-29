@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Eitrix
 {
@@ -25,6 +23,7 @@ namespace Eitrix
         FreezeDried,
         Transparency,
         ClearScreen,
+        Flip,
         NumberOfSpecials
     }
 
@@ -37,7 +36,7 @@ namespace Eitrix
     {
         public abstract SpecialType SpecialType { get; }
         public TimeWatcher Time = new TimeWatcher(Globals.Options.PowerLifetimeSeconds);
-
+        static protected double SecondsPerRowDefault = 0.067;
         bool firstTime = true;
         bool FirstTime
         {
@@ -97,6 +96,7 @@ namespace Eitrix
                 case SpecialType.FreezeDried: newSpecial = new Special.FreezeDried(owner, world); break;
                 case SpecialType.Transparency: newSpecial = new Special.Transparency(owner, world); break;
                 case SpecialType.ClearScreen: newSpecial = new Special.ClearScreen(owner, world); break;
+                case SpecialType.Flip: newSpecial = new Special.Flip(owner, world); break;
                 default: newSpecial = null; break;
             }
 
@@ -138,6 +138,83 @@ namespace Eitrix
         /// ##########################################################################################################
         /// ##########################################################################################################
         /// ##########################################################################################################
+
+
+        ///------------------------------------------------------------------------------
+        /// <summary>
+        /// Flip blocks upside down
+        /// </summary>
+        ///------------------------------------------------------------------------------
+        public  class Flip : Special
+        {
+            TimeWatcher brickTimer;
+            int yIdx;    // Which row to start at
+            int yInvIdx; // Decrement from end
+            int topY;
+            Block[,] tmpBlocksArray;
+
+            public override SpecialType SpecialType { get { return SpecialType.Flip; } }
+
+            public Flip(Player owner, World world)
+                : base(owner, world)
+            {
+                topY = 0;
+                for (topY = 0; topY < Victim.Grid.Height; topY++)
+                {
+                    // Search for an occupied block, if found we're at the top
+                    for (int x = 0; x < Victim.Grid.Width; x++)
+                    {
+                        if (Victim.Grid[x, topY] != null)
+                            goto found;
+                    }
+                }
+
+            found:
+
+                if (topY == Victim.Grid.Height) // No blocks
+                    return;
+
+                yIdx = topY;
+                yInvIdx = Globals.GridHeight - 1;
+                brickTimer = new TimeWatcher(0);
+
+                // Copy current blocks
+                tmpBlocksArray = new Block[Globals.GridWidth, Globals.GridHeight];
+
+                for (int y = topY; y < Victim.Grid.Height; y++)
+                {
+                    for (int x = 0; x < Victim.Grid.Width; x++)
+                    {
+                        tmpBlocksArray[x, y] = Victim.Grid[x, y];
+                    }
+                }
+                
+                // Tried to recreate the original sound from eitris which used
+                // a linear pitch scale:  .45, .60, .95 of full rate of Bing.wav
+                // This is a log2 scale (octave) so it translates to (I think):
+                //    pitch = log2(eitris_pitch)
+                world.AudioTool.PlaySound(SoundEffectType.Bing, 1, -1.152f, 0);
+                world.AudioTool.PlaySound(SoundEffectType.Bing, 1, -0.737f, 0);
+                world.AudioTool.PlaySound(SoundEffectType.Bing, 1, -0.074f, 0);
+            }
+
+            public override void Update()
+            {
+                if (brickTimer.Expired && !Finished)
+                {
+                    // Swap rows
+                    brickTimer = new TimeWatcher(SecondsPerRowDefault);
+                    for (int x = 0; x < Victim.Grid.Width; x++)
+                        Victim.Grid[x, yIdx] = tmpBlocksArray[x, yInvIdx];
+
+                    yInvIdx--; // Take next from the bottom
+                    yIdx++;    // Go to next from the top
+
+                    if (yIdx == Victim.Grid.Height)
+                        Finished = true;
+                }
+            }
+        }
 
 
         ///------------------------------------------------------------------------------
@@ -256,7 +333,6 @@ namespace Eitrix
         {
             TimeWatcher brickTimer;
             protected int x;
-            protected double secondsPerRow = 0.1;
 
             public override SpecialType SpecialType { get { return SpecialType.SwitchScreens; } }
 
@@ -282,7 +358,7 @@ namespace Eitrix
                         if (victimBlock != null) victimBlock.AnimationType = AnimationType.Highlight;
                     }
 
-                    brickTimer = new TimeWatcher(secondsPerRow);
+                    brickTimer = new TimeWatcher(SecondsPerRowDefault);
 
                     world.AudioTool.PlaySound(SoundEffectType.Dot);
 
@@ -677,7 +753,6 @@ namespace Eitrix
             TimeWatcher brickTimer;
             protected int y;
             protected int blockType;
-            protected double secondsPerRow = 0.067;
             protected bool reverse;
 
             protected abstract string[] Shape {get;}
@@ -719,7 +794,7 @@ namespace Eitrix
 
                     }
 
-                    brickTimer = new TimeWatcher(secondsPerRow);
+                    brickTimer = new TimeWatcher(SecondsPerRowDefault);
 
                     if (bricksSet > 0)
                     {

@@ -33,6 +33,7 @@ namespace Eitrix
         Attack11_Trombone,
         Attack12_haho,
         Attack13_CrazyLaugh,
+        Bing,
         Bump,
         Cheer,
         Clear01,

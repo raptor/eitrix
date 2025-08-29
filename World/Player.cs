@@ -373,14 +373,10 @@ namespace Eitrix
             else
             {
                 grid[blockLocations[pick].X, blockLocations[pick].Y].SpecialType = (SpecialType)Globals.rand.Next((int)SpecialType.NumberOfSpecials);
-#if DEBUG
-                //grid[blockLocations[pick].X, blockLocations[pick].Y].SpecialType = SpecialType.Transparency;
-#endif
             }
 
-#if DEBUG
-            //grid[blockLocations[pick].X, blockLocations[pick].Y].SpecialType = SpecialType.None;
-#endif
+            // DEBUG
+            // grid[blockLocations[pick].X, blockLocations[pick].Y].SpecialType = SpecialType.Flip;
         }
 
         ///------------------------------------------------------------------------------
