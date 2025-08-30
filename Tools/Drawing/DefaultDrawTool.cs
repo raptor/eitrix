@@ -551,7 +551,7 @@ namespace Eitrix
                     {
                         DrawPlainRectangle(actualPosition + gridOffset, squareSize * player.Grid.Width, squareSize * player.Grid.Height, new Color(.1f, .1f, .1f));
 
-                        UnsafeMarginPrint(Fonts.PlayerFont, actualPosition + gridOffset, squareSize * player.Grid.Width, Color.White, 
+                        UnsafeMarginPrint(Fonts.PlayerFont, actualPosition + gridOffset, squareSize * player.Grid.Width, Color.White,
                             screenSizeFactor * squeezeFactor, "Press drop button when ready to start the game.");
                     }
                     else
@@ -599,7 +599,7 @@ namespace Eitrix
 
                                 Color squareColor = TeamColors[thisBlock.ColorIndex];
                                 if (player.Transparency) squareColor = new Color(0, 0, 0, 0);
-                                if(player.PsychoColors != null) squareColor = (Color)player.PsychoColors[thisBlock.ColorIndex];
+                                if (player.PsychoColors != null) squareColor = (Color)player.PsychoColors[thisBlock.ColorIndex];
 
                                 if (thisBlock.Clearing)
                                 {
@@ -614,7 +614,7 @@ namespace Eitrix
                                     realBlockScaleFactor *= .4f;
                                     blockOffset += new Vector2(squareSize, squareSize) * thisBlock.FreezeDriedOffset;
                                 }
-                                
+
                                 DrawBrick(actualPosition + gridOffset + blockOffset, realBlockScaleFactor, squareColor, thisBlock);
                             }
                         }
@@ -727,63 +727,65 @@ namespace Eitrix
                             0,
                             Vector2.Zero,
                             screenSizeFactor * squeezeFactor * fontScale,
-                            SpriteEffects.None, 0);                    
+                            SpriteEffects.None, 0);
                     }
 
                     // Draw Future pieces
                     float futurePieceAreaHeight = playerHeight * .1f;
-                    float futurePieceAreaWidth =  gridPixelWidth * .55f;
+                    float futurePieceAreaWidth = gridPixelWidth * .55f;
                     float futurePieceAreaY = playerHeight * 0.81f;
                     Vector2 futurePieceAreaLocation = new Vector2(gridOffset.X, futurePieceAreaY) + actualPosition;
                     DrawBeveledRectangle(futurePieceAreaLocation, futurePieceAreaWidth, futurePieceAreaHeight, new Color(0, 0, 0, .6f));
                     float miniSquareSize = futurePieceAreaHeight / 6;
                     float miniBlockScaleFactor = miniSquareSize / 100f;
 
-
-                    for (int i = 0; i < 2; i++)
+                    if (!player.NoHints)
                     {
-                        if (i >= player.NextPieces.Count) break;
-                        Piece thisPiece = player.NextPieces[i];
-                        if (thisPiece == null) break;
-                        // Find Verticle and horizontal size
-                        int minx = int.MaxValue, miny = int.MaxValue, maxx = int.MinValue, maxy = int.MinValue;
-                        thisPiece.ProcessBlocks(
-                            (block, realx, realy) =>
-                            {
-                                
-                                int blockx = realx - thisPiece.X;
-                                int blocky = realy - thisPiece.Y;
+                        for (int i = 0; i < 2; i++)
+                        {
+                            if (i >= player.NextPieces.Count) break;
+                            Piece thisPiece = player.NextPieces[i];
+                            if (thisPiece == null) break;
+                            // Find Verticle and horizontal size
+                            int minx = int.MaxValue, miny = int.MaxValue, maxx = int.MinValue, maxy = int.MinValue;
+                            thisPiece.ProcessBlocks(
+                                (block, realx, realy) =>
+                                {
 
-                                if (blockx < minx) minx = blockx;
-                                if (blocky < miny) miny = blocky;
-                                if (blockx > maxx) maxx = blockx;
-                                if (blocky > maxy) maxy = blocky;
-                            });
+                                    int blockx = realx - thisPiece.X;
+                                    int blocky = realy - thisPiece.Y;
 
-                        int width = (int)((maxx - minx + 1) * miniSquareSize);
-                        int height = (int)((maxy - miny + 1) * miniSquareSize);
-                        int centerx = (int)(futurePieceAreaWidth / 4 + i * futurePieceAreaWidth / 2);
-                        int centery = (int)(futurePieceAreaHeight / 2);
-                        int offsetx = -(int)(minx * miniSquareSize);
-                        int offsety = -(int)(miny * miniSquareSize);
+                                    if (blockx < minx) minx = blockx;
+                                    if (blocky < miny) miny = blocky;
+                                    if (blockx > maxx) maxx = blockx;
+                                    if (blocky > maxy) maxy = blocky;
+                                });
 
-                        // Draw the player piece
-                        thisPiece.ProcessBlocks(
-                            (block, realx, realy) =>
-                            {
-                                int blockx = realx - thisPiece.X;
-                                int blocky = realy - thisPiece.Y;
+                            int width = (int)((maxx - minx + 1) * miniSquareSize);
+                            int height = (int)((maxy - miny + 1) * miniSquareSize);
+                            int centerx = (int)(futurePieceAreaWidth / 4 + i * futurePieceAreaWidth / 2);
+                            int centery = (int)(futurePieceAreaHeight / 2);
+                            int offsetx = -(int)(minx * miniSquareSize);
+                            int offsety = -(int)(miny * miniSquareSize);
 
-                                Vector2 blockOffset = futurePieceAreaLocation 
-                                    + new Vector2(centerx, centery) 
-                                    + new Vector2(offsetx, offsety) 
-                                    - new Vector2(width /2, height/2) 
-                                    + new Vector2(blockx * miniSquareSize, blocky * miniSquareSize);
+                            // Draw the player piece
+                            thisPiece.ProcessBlocks(
+                                (block, realx, realy) =>
+                                {
+                                    int blockx = realx - thisPiece.X;
+                                    int blocky = realy - thisPiece.Y;
+
+                                    Vector2 blockOffset = futurePieceAreaLocation
+                                        + new Vector2(centerx, centery)
+                                        + new Vector2(offsetx, offsety)
+                                        - new Vector2(width / 2, height / 2)
+                                        + new Vector2(blockx * miniSquareSize, blocky * miniSquareSize);
 
 
-                                Color squareColor = TeamColors[block.ColorIndex];
-                                DrawBrick(blockOffset, miniBlockScaleFactor, squareColor, block);
-                            });
+                                    Color squareColor = TeamColors[block.ColorIndex];
+                                    DrawBrick(blockOffset, miniBlockScaleFactor, squareColor, block);
+                                });
+                        }
                     }
 
                     // Draw Weapons

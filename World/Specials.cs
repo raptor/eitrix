@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Eitrix
 {
+    // The order here matters with texture loading of BrickAndOverlay
     public enum SpecialType
     {
         None = -1,
@@ -24,6 +25,7 @@ namespace Eitrix
         Transparency,
         ClearScreen,
         Flip,
+        NoHints,
         NumberOfSpecials
     }
 
@@ -97,6 +99,7 @@ namespace Eitrix
                 case SpecialType.Transparency: newSpecial = new Special.Transparency(owner, world); break;
                 case SpecialType.ClearScreen: newSpecial = new Special.ClearScreen(owner, world); break;
                 case SpecialType.Flip: newSpecial = new Special.Flip(owner, world); break;
+                case SpecialType.NoHints: newSpecial = new Special.NoHints(owner, world); break;
                 default: newSpecial = null; break;
             }
 
@@ -142,10 +145,44 @@ namespace Eitrix
 
         ///------------------------------------------------------------------------------
         /// <summary>
+        /// No Hints
+        /// </summary>
+        ///------------------------------------------------------------------------------
+        public class NoHints : Special
+        {
+            public override SpecialType SpecialType { get { return SpecialType.NoHints; } }
+
+            public NoHints(Player owner, World world)
+                : base(owner, world)
+            {
+            }
+
+            public override void Update()
+            {
+            }
+
+            internal override void AddToPlayer()
+            {
+                AddAfflictionToPlayer(() =>
+                {
+                    world.AudioTool.PlaySound(SoundEffectType.Bigpipe);
+                    afflictedVictim = Victim;
+                    afflictedVictim.NoHints = true;
+                });
+            }
+            internal override void RemoveFromPlayer()
+            {
+                afflictedVictim.NoHints = false;
+            }
+        }
+        
+
+        ///------------------------------------------------------------------------------
+        /// <summary>
         /// Flip blocks upside down
         /// </summary>
         ///------------------------------------------------------------------------------
-        public  class Flip : Special
+        public class Flip : Special
         {
             TimeWatcher brickTimer;
             int yIdx;    // Which row to start at
@@ -188,7 +225,7 @@ namespace Eitrix
                         tmpBlocksArray[x, y] = Victim.Grid[x, y];
                     }
                 }
-                
+
                 // Tried to recreate the original sound from eitris which used
                 // a linear pitch scale:  .45, .60, .95 of full rate of Bing.wav
                 // This is a log2 scale (octave) so it translates to (I think):

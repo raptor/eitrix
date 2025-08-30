@@ -89,6 +89,7 @@ namespace Eitrix
         public bool FreezeDried { get; set; }
         public bool Transparency { get; set; }
         public bool RepelledAttack { get; set; }
+        public bool NoHints { get; set; }
 
         static string[] randomPlayerNames = new string[]
         {
@@ -178,6 +179,7 @@ namespace Eitrix
             CrazyIvan = false;
             FreezeDried = false;
             Transparency = false;
+            NoHints = false;
             PracticeActions = new List<PracticeAction>();
             PracticeActions.Add(new PracticeAction(InputActionType.MoveLeft, "Left"));
             PracticeActions.Add(new PracticeAction(InputActionType.MoveRight, "Right"));
@@ -376,7 +378,7 @@ namespace Eitrix
             }
 
             // DEBUG
-            // grid[blockLocations[pick].X, blockLocations[pick].Y].SpecialType = SpecialType.Flip;
+            // grid[blockLocations[pick].X, blockLocations[pick].Y].SpecialType = SpecialType.NoHints;
         }
 
         ///------------------------------------------------------------------------------
