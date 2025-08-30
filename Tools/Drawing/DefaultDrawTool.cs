@@ -671,38 +671,41 @@ namespace Eitrix
                                 player.CurrentPiece.Y = originalY;
                             }
 
-
-                            // Draw the player piece highlight
-                            player.CurrentPiece.ProcessBlocks(
-                                (block, realx, realy) =>
-                                {
-                                    if (realx >= 0 && realy >= 0 && realx < player.Grid.Width && realy < player.Grid.Height)
+                            // Blindness will show the piece every once in a while
+                            if (! (player.Blindness && Globals.rand.Next(100) < 92) )
+                            {
+                                // Draw the player piece highlight
+                                player.CurrentPiece.ProcessBlocks(
+                                    (block, realx, realy) =>
                                     {
-                                        Vector2 blockOffset = new Vector2(realx * squareSize, realy * squareSize) - new Vector2(.3f * squareSize, .3f * squareSize);
-                                        spriteBatch.Draw(Textures.BrickAndOverlay,
-                                            actualPosition + gridOffset + blockOffset,
-                                            GetSpriteArea(Textures.BrickAndOverlay, 10, 2),
-                                            Color.White,
-                                            0,
-                                            new Vector2(0f, 0f),
-                                            blockScaleFactor * 1.6f,
-                                            SpriteEffects.None,
-                                            0);
-                                    }
-                                });
+                                        if (realx >= 0 && realy >= 0 && realx < player.Grid.Width && realy < player.Grid.Height)
+                                        {
+                                            Vector2 blockOffset = new Vector2(realx * squareSize, realy * squareSize) - new Vector2(.3f * squareSize, .3f * squareSize);
+                                            spriteBatch.Draw(Textures.BrickAndOverlay,
+                                                actualPosition + gridOffset + blockOffset,
+                                                GetSpriteArea(Textures.BrickAndOverlay, 10, 2),
+                                                Color.White,
+                                                0,
+                                                new Vector2(0f, 0f),
+                                                blockScaleFactor * 1.6f,
+                                                SpriteEffects.None,
+                                                0);
+                                        }
+                                    });
 
-                            // Draw the player piece
-                            player.CurrentPiece.ProcessBlocks(
-                                (block, realx, realy) =>
-                                {
-                                    if (realx >= 0 && realy >= 0 && realx < player.Grid.Width && realy < player.Grid.Height)
+                                // Draw the player piece
+                                player.CurrentPiece.ProcessBlocks(
+                                    (block, realx, realy) =>
                                     {
-                                        Vector2 blockOffset = new Vector2(realx * squareSize, realy * squareSize);
+                                        if (realx >= 0 && realy >= 0 && realx < player.Grid.Width && realy < player.Grid.Height)
+                                        {
+                                            Vector2 blockOffset = new Vector2(realx * squareSize, realy * squareSize);
 
-                                        Color squareColor = TeamColors[block.ColorIndex];
-                                        DrawBrick(actualPosition + gridOffset + blockOffset, blockScaleFactor, squareColor, block);
-                                    }
-                                });
+                                            Color squareColor = TeamColors[block.ColorIndex];
+                                            DrawBrick(actualPosition + gridOffset + blockOffset, blockScaleFactor, squareColor, block);
+                                        }
+                                    });
+                            }
                         }
 
                         float scorex = playerWidth * .05f;

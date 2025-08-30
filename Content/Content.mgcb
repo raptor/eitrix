@@ -667,6 +667,12 @@
 /processorParam:Quality=Best
 /build:Sounds/Clear4Lines.wav
 
+#begin Sounds/Cricket.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Cricket.wav
+
 #begin Sounds/CrowdAww.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

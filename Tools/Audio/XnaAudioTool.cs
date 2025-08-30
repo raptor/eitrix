@@ -42,6 +42,7 @@ namespace Eitrix
         Clear2Lines,
         Clear3Lines,
         Clear4Lines,
+        Cricket,
         CrowdAww,
         CymbalLong,
         CymbalShort,

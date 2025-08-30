@@ -26,6 +26,7 @@ namespace Eitrix
         ClearScreen,
         Flip,
         NoHints,
+        Blindness,
         NumberOfSpecials
     }
 
@@ -100,6 +101,7 @@ namespace Eitrix
                 case SpecialType.ClearScreen: newSpecial = new Special.ClearScreen(owner, world); break;
                 case SpecialType.Flip: newSpecial = new Special.Flip(owner, world); break;
                 case SpecialType.NoHints: newSpecial = new Special.NoHints(owner, world); break;
+                case SpecialType.Blindness: newSpecial = new Special.Blindness(owner, world); break;
                 default: newSpecial = null; break;
             }
 
@@ -141,6 +143,40 @@ namespace Eitrix
         /// ##########################################################################################################
         /// ##########################################################################################################
         /// ##########################################################################################################
+
+
+        ///------------------------------------------------------------------------------
+        /// <summary>
+        /// Blindness (Invisible pieces)
+        /// </summary>
+        ///------------------------------------------------------------------------------
+        public class Blindness : Special
+        {
+            public override SpecialType SpecialType { get { return SpecialType.Blindness; } }
+
+            public Blindness(Player owner, World world)
+                : base(owner, world)
+            {
+            }
+
+            public override void Update()
+            {
+            }
+
+            internal override void AddToPlayer()
+            {
+                AddAfflictionToPlayer(() =>
+                {
+                    world.AudioTool.PlaySound(SoundEffectType.Cricket);
+                    afflictedVictim = Victim;
+                    afflictedVictim.Blindness = true;
+                });
+            }
+            internal override void RemoveFromPlayer()
+            {
+                afflictedVictim.Blindness = false;
+            }
+        }
 
 
         ///------------------------------------------------------------------------------
