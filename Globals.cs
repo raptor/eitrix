@@ -28,6 +28,7 @@ namespace Eitrix
         public const int ComputerPlayerId = 20000;
         public const int KeyBoardPlayerBaseId = 1000; 
         public const int HelpPages = 3;
+        public const int GridCount = 12;
 
 
         public static Random rand = new Random();

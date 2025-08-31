@@ -200,7 +200,7 @@ namespace Eitrix
                 Textures.HelpPage.Add(SafeLoadTexture(Content, "Images/HelpPage" + i.ToString("00")));
             }
 
-            for (int i = 0; i < 11; i++)
+            for (int i = 0; i < Globals.GridCount; i++)
             {
                 Textures.Grid.Add(SafeLoadTexture(Content, "Images/Grid" + i.ToString("00")));
             }
@@ -532,7 +532,7 @@ namespace Eitrix
 
                 if (player.BackGround == -1)
                 {
-                    player.BackGround = Globals.rand.Next(7);
+                    player.BackGround = Globals.rand.Next(Globals.GridCount);
                 }
 
                 DrawObject(drawX, drawY, (actualPosition) =>

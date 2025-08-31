@@ -28,6 +28,7 @@ namespace Eitrix
         NoHints,
         Blindness,
         JunkYard,
+        ChangeBackground,
         NumberOfSpecials
     }
 
@@ -104,6 +105,7 @@ namespace Eitrix
                 case SpecialType.NoHints: newSpecial = new Special.NoHints(owner, world); break;
                 case SpecialType.Blindness: newSpecial = new Special.Blindness(owner, world); break;
                 case SpecialType.JunkYard: newSpecial = new Special.JunkYard(owner, world); break;
+                case SpecialType.ChangeBackground: newSpecial = new Special.ChangeBackground(owner, world); break;
                 default: newSpecial = null; break;
             }
 
@@ -149,6 +151,30 @@ namespace Eitrix
 
         ///------------------------------------------------------------------------------
         /// <summary>
+        /// ChangeBackground
+        /// </summary>
+        ///------------------------------------------------------------------------------
+        public class ChangeBackground : Special
+        {
+            public override SpecialType SpecialType { get { return SpecialType.ChangeBackground; } }
+
+            public ChangeBackground(Player owner, World world)
+                : base(owner, world)
+            {
+                world.AudioTool.PlaySound(SoundEffectType.Docoe);
+
+                Victim.BackGround = Globals.rand.Next(Globals.GridCount);
+            }
+
+            public override void Update()
+            {
+                // Do Nothing!
+            }
+        }
+        
+
+        ///------------------------------------------------------------------------------
+        /// <summary>
         /// Junk Yard - randomize grid
         /// </summary>
         ///------------------------------------------------------------------------------
@@ -182,10 +208,10 @@ namespace Eitrix
 
                 yInvIdx = Victim.Grid.Height;
                 brickTimer = new TimeWatcher(0);
-                
+
                 double pitchFactor = (Globals.rand.Next(50) + 75) / 100.0;
                 double pitch = Math.Log2(pitchFactor);
-                world.AudioTool.PlaySound(SoundEffectType.Docoe, 1, (float) pitch, 0);
+                world.AudioTool.PlaySound(SoundEffectType.Docoe, 1, (float)pitch, 0);
             }
 
             public override void Update()
