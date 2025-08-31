@@ -697,6 +697,12 @@
 /processorParam:Quality=Best
 /build:Sounds/Dentdril.wav
 
+#begin Sounds/Docoe.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Docoe.wav
+
 #begin Sounds/Dot.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

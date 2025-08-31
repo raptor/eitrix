@@ -47,6 +47,7 @@ namespace Eitrix
         CymbalLong,
         CymbalShort,
         Dentdril,
+        Docoe,
         Dot,
         Dot01,
         Dot02,

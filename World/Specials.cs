@@ -27,6 +27,7 @@ namespace Eitrix
         Flip,
         NoHints,
         Blindness,
+        JunkYard,
         NumberOfSpecials
     }
 
@@ -102,6 +103,7 @@ namespace Eitrix
                 case SpecialType.Flip: newSpecial = new Special.Flip(owner, world); break;
                 case SpecialType.NoHints: newSpecial = new Special.NoHints(owner, world); break;
                 case SpecialType.Blindness: newSpecial = new Special.Blindness(owner, world); break;
+                case SpecialType.JunkYard: newSpecial = new Special.JunkYard(owner, world); break;
                 default: newSpecial = null; break;
             }
 
@@ -143,6 +145,72 @@ namespace Eitrix
         /// ##########################################################################################################
         /// ##########################################################################################################
         /// ##########################################################################################################
+        
+
+        ///------------------------------------------------------------------------------
+        /// <summary>
+        /// Junk Yard - randomize grid
+        /// </summary>
+        ///------------------------------------------------------------------------------
+        public class JunkYard : Special
+        {
+            TimeWatcher brickTimer;
+            double secondsPerRow = 0.033;  // Faster than default
+            int topY;
+            int yInvIdx;
+            public override SpecialType SpecialType { get { return SpecialType.JunkYard; } }
+
+            public JunkYard(Player owner, World world)
+                : base(owner, world)
+            {
+                // Find top
+                for (topY = 0; topY < Victim.Grid.Height; topY++)
+                {
+                    // Search for an occupied block, if found we're at the top
+                    for (int x = 0; x < Victim.Grid.Width; x++)
+                    {
+                        if (Victim.Grid[x, topY] != null)
+                            goto found;
+                    }
+                }
+            found:
+                // Set some bounds for the junk
+                if (topY > (2 * Victim.Grid.Height) / 3)
+                    topY = (2 * Victim.Grid.Height) / 3;
+                if (topY < Victim.Grid.Height / 3)
+                    topY = Victim.Grid.Height / 3;
+
+                yInvIdx = Victim.Grid.Height;
+                brickTimer = new TimeWatcher(0);
+                
+                double pitchFactor = (Globals.rand.Next(50) + 75) / 100.0;
+                double pitch = Math.Log2(pitchFactor);
+                world.AudioTool.PlaySound(SoundEffectType.Docoe, 1, (float) pitch, 0);
+            }
+
+            public override void Update()
+            {
+                if (brickTimer.Expired && !Finished)
+                {
+                    // Swap rows
+                    brickTimer = new TimeWatcher(secondsPerRow);
+
+                    yInvIdx--;
+
+                    for (int x = 0; x < Victim.Grid.Width; x++)
+                    {
+                        // 25% change to add block with random color 
+                        if (Globals.rand.Next(100) < 25)
+                            Victim.Grid[x, yInvIdx] = new Block(x, yInvIdx, Globals.rand.Next(18));
+                        else
+                            Victim.Grid[x, yInvIdx] = null;
+                    }
+
+                    if (yInvIdx == topY)
+                        Finished = true;
+                }
+            }
+        }
 
 
         ///------------------------------------------------------------------------------
