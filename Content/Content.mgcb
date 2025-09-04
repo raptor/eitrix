@@ -523,6 +523,12 @@
 /processorParam:Quality=Best
 /build:Sounds/Music/team_2.mp3
 
+#begin Sounds/Music/Tetris-GB-Korobeiniki.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Music/Tetris-GB-Korobeiniki.mp3
+
 #begin Sounds/Music/up_stream_03_farly and big bird.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

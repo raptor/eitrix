@@ -161,15 +161,15 @@ namespace Eitrix
             backgroundMusicList = new List<SongData>();
             List<string> musicToLoad = new List<string>( new string[]
             {
-                "Sounds/Music/Solarwind_4-traumas", 
+                "Sounds/Music/Solarwind_4-traumas",
                 "Sounds/Music/team_2", 
                 // "Sounds/Music/up_stream_03_farly and big bird", 
-                "Sounds/Music/Cl-chip1", 
-                "Sounds/Music/Beast-pl", 
-                "Sounds/Music/Cutdry", 
-                "Sounds/Music/aryx", 
-                "Sounds/Music/dervish", 
-
+                "Sounds/Music/Cl-chip1",
+                "Sounds/Music/Beast-pl",
+                "Sounds/Music/Cutdry",
+                "Sounds/Music/aryx",
+                "Sounds/Music/dervish",
+                "Sounds/Music/Tetris-GB-Korobeiniki",
 
 
                 //"Sounds/Music/Class_9a", 
