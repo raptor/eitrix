@@ -1,3 +1,4 @@
+using System;
 
 namespace Eitrix
 {
@@ -26,11 +27,9 @@ namespace Eitrix
 #if !DEBUG
             catch (Exception e)
             {
-#if WINDOWS
                 string desktopFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 string errorFileName = System.IO.Path.Combine(desktopFolder, "EitrixError.txt");
                 System.IO.File.WriteAllText(errorFileName, e.ToString());
-#endif
             }
 #endif
             finally
