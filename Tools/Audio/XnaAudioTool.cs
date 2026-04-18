@@ -36,6 +36,7 @@ namespace Eitrix
         Bigpipe,
         Bing,
         Bump,
+        Carhorn,
         Cheer,
         Clear01,
         Clear1Line,

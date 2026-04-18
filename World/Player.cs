@@ -66,6 +66,7 @@ namespace Eitrix
         public int BackGround { get; set; }
         public int Points { get; set; }
         public int Rows { get; set; }
+        public int LastRowsCleared { get; set; }
         public int Score { get; set; }
         public int TotalScore { get; set; }
         public int TotalPoints { get; set; }
@@ -164,7 +165,7 @@ namespace Eitrix
             BackGround = -1;
             this.world = world;
             dropTickIntervalSeconds = 1;
-            Score = Rows = Points = 0;
+            Score = Rows = LastRowsCleared = Points = 0;
             NextPieces = new List<Piece>();
             MoveFast = false;
             NextSpecialTimer = new TimeWatcher(0);
@@ -695,6 +696,7 @@ namespace Eitrix
 
             this.Rows += rowsCleared;
             this.Score += rowsCleared * rowsCleared * 1000;
+            if(rowsCleared != 0) this.LastRowsCleared = rowsCleared;  // For Eit-O-Matic
             switch (rowsCleared)
             {
                 case 0: break;

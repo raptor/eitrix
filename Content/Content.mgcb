@@ -637,6 +637,12 @@
 /processorParam:Quality=Best
 /build:Sounds/Bump.wav
 
+#begin Sounds/Carhorn.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Carhorn.wav
+
 #begin Sounds/Cheer.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

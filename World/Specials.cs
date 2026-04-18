@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Eitrix
@@ -29,6 +29,7 @@ namespace Eitrix
         Blindness,
         JunkYard,
         ChangeBackground,
+        EitOMatic,
         NumberOfSpecials
     }
 
@@ -106,6 +107,7 @@ namespace Eitrix
                 case SpecialType.Blindness: newSpecial = new Special.Blindness(owner, world); break;
                 case SpecialType.JunkYard: newSpecial = new Special.JunkYard(owner, world); break;
                 case SpecialType.ChangeBackground: newSpecial = new Special.ChangeBackground(owner, world); break;
+                case SpecialType.EitOMatic: newSpecial = new Special.EitOMatic(owner, world); break;
                 default: newSpecial = null; break;
             }
 
@@ -114,6 +116,7 @@ namespace Eitrix
 
         }
 
+        // Default to an 'Attack'
         internal virtual void AddToPlayer()
         {
             AddAttackToPlayer();
@@ -148,6 +151,97 @@ namespace Eitrix
         /// ##########################################################################################################
         /// ##########################################################################################################
         
+
+        ///------------------------------------------------------------------------------
+        /// <summary>
+        /// EIT-O-Matic
+        /// </summary>
+        ///------------------------------------------------------------------------------
+        public class EitOMatic : Special
+        {
+            double durationSeconds = 9.5;
+            TimeWatcher EitOMaticTimer;
+
+            double rowSeconds = 0.2;
+            TimeWatcher rowTimer;
+            
+            public override SpecialType SpecialType { get { return SpecialType.EitOMatic; } }
+            int rowsToSend;
+            int lastRowCount;
+
+            public EitOMatic(Player owner, World world)
+                : base(owner, world)
+            { 
+                // Start of EIT-O-Matic
+                world.AudioTool.PlaySound(SoundEffectType.Carhorn);
+
+                rowTimer = new TimeWatcher(0);
+                rowsToSend = 0;
+                // Rows cleared are updated before this special is activated
+                lastRowCount = owner.Rows - owner.LastRowsCleared;
+            }
+
+            internal override void AddToPlayer()
+            {
+                owner.EmpowerWith(this);
+
+                // Start timer on player
+                EitOMaticTimer = new TimeWatcher(durationSeconds);
+            }
+
+            public override void Update()
+            {
+                if (!Finished)
+                {
+                    // Try to detect new rows that the player completed
+                    if (owner.Rows > lastRowCount) {
+                        int numNewRows = owner.Rows - lastRowCount;
+                        lastRowCount = owner.Rows;
+                        
+                        // Save count
+                        rowsToSend = rowsToSend + numNewRows;
+                    }
+
+                    // Send one row at a time to the victim
+                    if(rowsToSend > 0 && rowTimer.Expired) {
+                        world.AudioTool.PlaySound(SoundEffectType.Dentdril, 1, 1.0f, 0);
+
+                        // Start at top+1 and move up all rows of Victim up
+                        for (int y = 1; y < Victim.Grid.Height; y++)
+                        {
+                            for (int x = 0; x < Victim.Grid.Width; x++)
+                            {
+                                Victim.Grid[x, y-1] = Victim.Grid[x, y];
+                            }
+                        }
+
+                        // ADD new row to bottom of victim
+                        int skipX = Globals.rand.Next(Victim.Grid.Width);
+                        for (int x = 0; x < Victim.Grid.Width; x++) {
+                            if (x == skipX)
+                                Victim.Grid[x, Victim.Grid.Height-1] = null;
+                            else
+                                Victim.Grid[x, Victim.Grid.Height-1] = new Block(x, 0, Globals.rand.Next(18));
+                        }
+
+                        // Reset
+                        rowTimer = new TimeWatcher(rowSeconds);
+                        rowsToSend--; 
+                    }
+                }
+                
+                if (FirstTime)
+                {
+                    EitOMaticTimer.Reset();
+                }
+
+                if (EitOMaticTimer.Expired)
+                {
+                    Finished = true;
+                }
+            }
+        }
+
 
         ///------------------------------------------------------------------------------
         /// <summary>
